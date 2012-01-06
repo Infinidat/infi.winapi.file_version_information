@@ -33,7 +33,7 @@ class MockFileTestCase(FileTestCase):
 
     def _patch_GetFileVersionInfoSizeW(self, filepath):
         self.assertEqual(filepath.value, CMD_EXE_PATH)
-        return 0
+        return 1828
 
     def test_version_of_cmd_exe(self):
         with nested(mock.patch.object(os.path, "exists", self._patch_exists),
