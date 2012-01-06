@@ -16,7 +16,7 @@ class File(object):
 
     def _extract_version_info_from_block(self, block):
         sub_block = ctypes.create_unicode_buffer(u"\\")
-        size = ctypes.c_ulong(VS_FIXEDFILEINFO.min_max_sizeof().max)
+        size = ctypes.c_ulong(api.VS_FIXEDFILEINFO.min_max_sizeof().max)
         pointer = ctypes.c_void_p()
         api.VerQueryValueW(block, sub_block, pointer, size)
         buffer = ctypes.string_at(pointer, size.value)
