@@ -27,11 +27,12 @@ class File(object):
         block = ctypes.c_buffer('\x00' * size.value, size.value)
         filepath = ctypes.create_unicode_buffer(self._path)
         api.GetFileVersionInfoW(filepath, ctypes.c_ulong(0), size, block)
-        return self._extract_version_info_from_block(block)
+        return block
 
     def get_version(self):
         assert os.path.exists(self._path)
-        info = self._get_version_info()
+        block = self._get_version_info()
+        info = self._extract_version_info_from_block(block)
         items = [api.HIWORD(info.dwFileVersionMS), api.LOWORD(info.dwFileVersionMS),
                 api.HIWORD(info.dwFileVersionLS), api.LOWORD(info.dwFileVersionLS)]
         return ".".join([str(item) for item in items])
