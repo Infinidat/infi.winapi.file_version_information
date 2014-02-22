@@ -39,3 +39,4 @@ src/infi/hello/__version__.py
 
 src/infi/winapi/file_version_information/__version__.py
 bootstrap.py
+.cache
