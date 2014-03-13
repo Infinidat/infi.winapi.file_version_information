@@ -1,5 +1,5 @@
 
-from infi import instruct, crap
+from infi import instruct, cwrap
 import ctypes
 import os
 from ctypes import c_wchar_p as LPWSTR
@@ -23,12 +23,12 @@ class VS_FIXEDFILEINFO(instruct.Struct):
                 instruct.ULInt32("dwFileDateLS"),
                 ]
 
-class GetFileVersionInfoW(crap.WrappedFunction):
+class GetFileVersionInfoW(cwrap.WrappedFunction):
     return_value = ctypes.c_byte
 
     @classmethod
     def get_errcheck(cls):
-        return crap.errcheck_zero()
+        return cwrap.errcheck_zero()
 
     @classmethod
     def get_library_name(cls):
@@ -36,10 +36,10 @@ class GetFileVersionInfoW(crap.WrappedFunction):
 
     @classmethod
     def get_parameters(cls):
-        return ((ctypes.c_wchar_p, crap.IN, "strFileName"),
+        return ((ctypes.c_wchar_p, cwrap.IN, "strFileName"),
                 (ctypes.c_ulong, 0, "handle"),
-                (ctypes.c_ulong, crap.IN, "len"),
-                (ctypes.c_void_p, crap.IN_OUT, "data"),)
+                (ctypes.c_ulong, cwrap.IN, "len"),
+                (ctypes.c_void_p, cwrap.IN_OUT, "data"),)
 
 def errcheck_zero():
     """ this error checker raises a RuntimeError if the returned value is zero
@@ -50,7 +50,7 @@ def errcheck_zero():
         return result
     return errcheck
 
-class GetFileVersionInfoSizeW(crap.WrappedFunction):
+class GetFileVersionInfoSizeW(cwrap.WrappedFunction):
     return_value = ctypes.c_ulong
 
     @classmethod
@@ -63,15 +63,15 @@ class GetFileVersionInfoSizeW(crap.WrappedFunction):
 
     @classmethod
     def get_parameters(cls):
-        return ((ctypes.c_wchar_p, crap.IN, "strFileName"),
-                (ctypes.c_void_p, crap.IN_OUT, "dwHandle", 0),)
+        return ((ctypes.c_wchar_p, cwrap.IN, "strFileName"),
+                (ctypes.c_void_p, cwrap.IN_OUT, "dwHandle", 0),)
 
-class VerQueryValueW(crap.WrappedFunction):
+class VerQueryValueW(cwrap.WrappedFunction):
     return_value = ctypes.c_byte
 
     @classmethod
     def get_errcheck(cls):
-        return crap.errcheck_zero()
+        return cwrap.errcheck_zero()
 
     @classmethod
     def get_library_name(cls):
@@ -79,10 +79,10 @@ class VerQueryValueW(crap.WrappedFunction):
 
     @classmethod
     def get_parameters(cls):
-        return ((ctypes.c_void_p, crap.IN, "block"),
-                (ctypes.c_void_p, crap.IN, "subBlock"),
-                (ctypes.POINTER(ctypes.c_void_p), crap.IN_OUT, "buffer"),
-                (ctypes.POINTER(ctypes.c_ulong), crap.IN_OUT, "len"),)
+        return ((ctypes.c_void_p, cwrap.IN, "block"),
+                (ctypes.c_void_p, cwrap.IN, "subBlock"),
+                (ctypes.POINTER(ctypes.c_void_p), cwrap.IN_OUT, "buffer"),
+                (ctypes.POINTER(ctypes.c_ulong), cwrap.IN_OUT, "len"),)
 
 def HIWORD(number):
     return (number & 0xFFFF0000) >> 16
