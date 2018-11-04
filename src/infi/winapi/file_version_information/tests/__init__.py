@@ -124,7 +124,7 @@ class MockFileTestCase(FileTestCase):
 
     def _patch_VerQueryValueW(self, block, sub_block, pointer, length):
         self.assertEqual(block.raw, FILE_VERSION_INFO[:1828])
-        self.assertEqual(sub_block.value, u'\\')
+        self.assertEqual(sub_block.value, '\\')
         _buffer = ctypes.create_string_buffer(MOCK_VS_FIXEDFILEINFO, api.VS_FIXEDFILEINFO.min_max_sizeof().max)
         pointer.value = ctypes.addressof(_buffer)
         return 1
