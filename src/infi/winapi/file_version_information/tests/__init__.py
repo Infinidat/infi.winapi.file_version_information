@@ -5,7 +5,7 @@ import ctypes
 from infi import unittest
 from .. import  File, api
 from pkg_resources import parse_version
-from contextlib import nested, contextmanager
+from contextlib import contextmanager
 
 CMD_EXE_PATH = r"C:\Windows\System32\cmd.exe"
 
