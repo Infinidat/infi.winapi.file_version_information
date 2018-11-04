@@ -130,9 +130,9 @@ class MockFileTestCase(FileTestCase):
         return 1
 
     def test_version_of_cmd_exe(self):
-        with nested(mock.patch.object(os.path, "exists", self._patch_exists),
-                    mock.patch.object(api, "GetFileVersionInfoSizeW", self._patch_GetFileVersionInfoSizeW),
-                    mock.patch.object(api, "GetFileVersionInfoW", self._patch_GetFileVersionInfoW),
-                    mock.patch.object(api, "VerQueryValueW", self._patch_VerQueryValueW),):
+        with mock.patch.object(os.path, "exists", self._patch_exists), \
+             mock.patch.object(api, "GetFileVersionInfoSizeW", self._patch_GetFileVersionInfoSizeW), \
+             mock.patch.object(api, "GetFileVersionInfoW", self._patch_GetFileVersionInfoW), \
+             mock.patch.object(api, "VerQueryValueW", self._patch_VerQueryValueW):
             super(MockFileTestCase, self).test_version_of_cmd_exe()
 
