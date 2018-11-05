@@ -24,7 +24,7 @@ class File(object):
 
     def _get_version_info(self):
         size = ctypes.c_ulong(self._get_version_info_size())
-        block = ctypes.c_buffer('\x00' * size.value, size.value)
+        block = ctypes.c_buffer(b'\x00' * size.value, size.value)
         filepath = ctypes.create_unicode_buffer(self._path)
         api.GetFileVersionInfoW(filepath, ctypes.c_ulong(0), size, block)
         return block
