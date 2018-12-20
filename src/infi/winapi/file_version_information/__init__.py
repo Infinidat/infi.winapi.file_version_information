@@ -15,7 +15,7 @@ class File(object):
         return size
 
     def _extract_version_info_from_block(self, block):
-        sub_block = ctypes.create_unicode_buffer(u"\\")
+        sub_block = ctypes.create_unicode_buffer("\\")
         size = ctypes.c_ulong(api.VS_FIXEDFILEINFO.min_max_sizeof().max)
         pointer = ctypes.c_void_p()
         api.VerQueryValueW(block, sub_block, pointer, size)
@@ -24,7 +24,7 @@ class File(object):
 
     def _get_version_info(self):
         size = ctypes.c_ulong(self._get_version_info_size())
-        block = ctypes.c_buffer('\x00' * size.value, size.value)
+        block = ctypes.c_buffer(b'\x00' * size.value, size.value)
         filepath = ctypes.create_unicode_buffer(self._path)
         api.GetFileVersionInfoW(filepath, ctypes.c_ulong(0), size, block)
         return block
